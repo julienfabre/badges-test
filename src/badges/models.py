@@ -1,13 +1,15 @@
-from django.db import models
+from django.db.models import Model, OneToOneField
+
+from users.models import User
 
 
-class Star(models.Model):
-    pass
+class Star(Model):
+    user = OneToOneField(User, primary_key=True)
 
 
-class Collector(models.Model):
-    pass
+class Collector(Model):
+    user = OneToOneField(User, primary_key=True)
 
 
-class Pioneer(models.Model):
-    pass
+class Pioneer(Model):
+    user = OneToOneField(User, primary_key=True)

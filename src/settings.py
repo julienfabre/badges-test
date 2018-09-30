@@ -24,9 +24,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'users',
     'badges',
     'models3d',
-    'users',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -113,3 +113,5 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 MEDIA_ROOT = 'data'
+
+AUTH_USER_MODEL = 'users.User'

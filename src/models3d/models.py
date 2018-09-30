@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import User
+from users.models import User
 
 
 class Model(models.Model):
@@ -8,3 +8,4 @@ class Model(models.Model):
     user = models.ForeignKey(User, related_name='models')
     vertice_count = models.IntegerField(default=0)
     weight = models.IntegerField(default=0)
+    viewcount = models.IntegerField(default=0)
