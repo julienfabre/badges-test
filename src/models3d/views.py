@@ -1,4 +1,3 @@
-from django.contrib.auth.models import User
 from django.views.generic.base import View
 from django.views.generic.edit import CreateView
 from django.views.generic.list import ListView
@@ -7,7 +6,8 @@ from django.views.generic.detail import DetailView
 from .models import Model
 from .forms import ModelCreateForm
 from .processing import Processor
-from badges.models import Collector
+from badges.models import Collector, Star
+from users.models import User
 
 
 class ModelCreateView(CreateView):
@@ -22,8 +22,8 @@ class ModelCreateView(CreateView):
         model.save()
 
         if user.models.count() >= 5 and not Collector.objects.filter(user=user).exists():
-            collector = Collector(user=user)
-            collector.save()
+            # Award Collector badge.
+            Collector.objects.create(user=user)
 
         processor = Processor()
         processor.configure(model.file.path)
@@ -50,3 +50,17 @@ class ModelDetailView(DetailView):
     queryset = Model.objects.all()
     slug_field = 'name'
     slug_url_kwarg = 'name'
+
+    def get_object(self, queryset=None):
+        """
+        Overriding get_object method from SingleObjectMixin to sum the 3D Model's views.
+        """
+        model = super(ModelDetailView, self).get_object(queryset=queryset)
+        model.viewcount += 1
+        model.save()
+
+        if model.viewcount >= 100 and not Star.objects.filter(user=model.user).exists():
+            # Award Star badge.
+            Star.objects.create(user=model.user)
+
+        return model
