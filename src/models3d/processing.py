@@ -5,7 +5,9 @@ class Processor(object):
     """This class is doing dummy actions for the exercice purpose. In real life, these actions
     would be costly in resources and would take some time to execute."""
 
-    vertices = []
+    def __init__(self):
+        # Vertices is a class method.
+        self.vertices = []
 
     def configure(self, file):
         with open(file, 'r') as fd:
@@ -17,7 +19,8 @@ class Processor(object):
         weight = 0
 
         for x, y, z in self.vertices:
-            weight = sqrt(x**2 + y**2 + z**2)
+            # Summing weights.
+            weight += sqrt(x**2 + y**2 + z**2)
 
         return weight
 
