@@ -1,5 +1,9 @@
 # Badges
 
+## Usage
+* Follow the setup below
+* Run `./manage.sh migrate`
+* Run `./manage.sh test badges`
 ## Introduction
 
 Sketchfab is a platform on which 3D creators can upload models and the public enjoy them. It has been doing well so far but we feel that our users could use Sketchfab even more. Maybe rewarding them for doing actions on the site could motivate them. What about badges ?
