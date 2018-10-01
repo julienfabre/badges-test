@@ -13,3 +13,6 @@ class Collector(Model):
 
 class Pioneer(Model):
     user = OneToOneField(User, primary_key=True)
+
+class Heavyweight(Model):
+    user = OneToOneField(User, primary_key=True)

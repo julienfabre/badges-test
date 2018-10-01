@@ -5,7 +5,7 @@ from django.test import TestCase
 
 from users.models import User
 from models3d.models import Model
-from .models import Star, Collector, Pioneer
+from .models import Star, Collector, Pioneer, Heavyweight
 
 
 class BadgeTestCase(TestCase):
@@ -37,3 +37,11 @@ class BadgeTestCase(TestCase):
     def test_pioneer(self):
         self.client.login(username=self.user.username, password='password')
         self.assertTrue(Pioneer.objects.filter(user=self.user))
+
+    def test_heavyweight(self):
+        self.client.login(username=self.user.username, password='password')
+
+        with open('data/tests/big_triangle.obj') as fd:
+            self.client.post('/models', data={'file': fd})
+
+        self.assertTrue(Heavyweight.objects.filter(user=self.user))
