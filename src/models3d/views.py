@@ -6,8 +6,12 @@ from django.views.generic.detail import DetailView
 from .models import Model
 from .forms import ModelCreateForm
 from .processing import Processor
-from badges.models import Collector, Star
+from badges.models import Collector, Star, Heavyweight
 from users.models import User
+
+CONST_COLLECTOR = 5
+CONST_STAR = 100
+CONST_HEAVYWEIGHT = 10
 
 
 class ModelCreateView(CreateView):
@@ -21,13 +25,18 @@ class ModelCreateView(CreateView):
         model.user = user
         model.save()
 
-        if user.models.count() >= 5 and not Collector.objects.filter(user=user).exists():
+        if user.models.count() >= CONST_COLLECTOR and not Collector.objects.filter(user=user).exists():
             # Award Collector badge.
             Collector.objects.create(user=user)
 
         processor = Processor()
         processor.configure(model.file.path)
-        model.weight = processor.weigh()
+        weight = processor.weigh()
+        if weight > CONST_HEAVYWEIGHT and not Heavyweight.objects.filter(user=user).exists():
+            # Award Heavyweight badge.
+            Heavyweight.objects.create(user=user)
+
+        model.weight = weight
         model.vertice_count = processor.count_vertices()
         model.save()
 
@@ -59,7 +68,7 @@ class ModelDetailView(DetailView):
         model.viewcount += 1
         model.save()
 
-        if model.viewcount >= 100 and not Star.objects.filter(user=model.user).exists():
+        if model.viewcount >= CONST_STAR and not Star.objects.filter(user=model.user).exists():
             # Award Star badge.
             Star.objects.create(user=model.user)
 
