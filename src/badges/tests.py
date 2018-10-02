@@ -1,9 +1,9 @@
 from datetime import timedelta
 
+from django.contrib.auth.models import User
 from django.utils import timezone
 from django.test import TestCase
 
-from users.models import User
 from models3d.models import Model
 from .models import Star, Collector, Pioneer, Heavyweight
 

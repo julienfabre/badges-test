@@ -1,6 +1,5 @@
 from django.db.models import Model, OneToOneField
-
-from users.models import User
+from django.contrib.auth.models import User
 
 
 class Star(Model):
@@ -13,6 +12,7 @@ class Collector(Model):
 
 class Pioneer(Model):
     user = OneToOneField(User, primary_key=True)
+
 
 class Heavyweight(Model):
     user = OneToOneField(User, primary_key=True)

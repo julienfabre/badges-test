@@ -1,18 +1,23 @@
 from datetime import timedelta
 
 from django.utils import timezone
-from django.contrib.auth.models import UserManager
+from django.contrib.auth.backends import ModelBackend
 from django.apps import apps
 
 CONST_PIONEER = 365
 
 
-class SketchfabUserManager(UserManager):
-    def get(self, *args, **kwargs):
+class CustomBackend(ModelBackend):
+    """
+    Custom Backend to award Pioneer badge at User login.
+    """
+
+    def authenticate(self, username=None, password=None, **kwargs):
         """
-        Overriding get method from QuerySet to award Pioneer badge at login.
+        Overriding authenticate method from ModelBackend (standard Django authentication backend)
+        to award Pioneer badge at User login.
         """
-        user = super(UserManager, self).get(*args, **kwargs)
+        user = super(CustomBackend, self).authenticate(username, password, **kwargs)
 
         # Lazy loading Pioneer model to avoid circular imports.
         pioneer_model = apps.get_model(app_label="badges", model_name="Pioneer")

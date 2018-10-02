@@ -1,7 +1,6 @@
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
-
-from models import User
+from django.contrib.auth.models import User
 
 
 class UserListView(ListView):

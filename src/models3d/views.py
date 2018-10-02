@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.views.generic.base import View
 from django.views.generic.edit import CreateView
 from django.views.generic.list import ListView
@@ -7,7 +8,7 @@ from .models import Model
 from .forms import ModelCreateForm
 from .processing import Processor
 from badges.models import Collector, Star, Heavyweight
-from users.models import User
+
 
 CONST_COLLECTOR = 5
 CONST_STAR = 100

@@ -114,5 +114,5 @@ USE_TZ = True
 STATIC_URL = '/static/'
 MEDIA_ROOT = 'data'
 
-# Using custoom User model.
-AUTH_USER_MODEL = 'users.User'
+# Using a custom authentication backend
+AUTHENTICATION_BACKENDS = ['users.backend.CustomBackend']
